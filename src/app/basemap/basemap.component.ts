@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, NgZone } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  NgZone,
+  HostListener
+} from "@angular/core";
 import { environment } from "../../environments/environment";
 import { interval } from "rxjs";
 import * as mapboxgl from "mapbox-gl";
@@ -14,14 +20,15 @@ import {
   LngLatLike
 } from "mapbox-gl";
 import { GeoJSONSource } from "mapbox-gl";
-import { ConfigurationService } from "../service/configuration.service";
-import { LayerLoaderService } from "../service/layer-loader.service";
-import { CityIOService } from "../service/cityio.service";
+import { ConfigurationService } from "../services/configuration.service";
+import { LayerLoaderService } from "../services/layer-loader.service";
+import { CityIOService } from "../services/cityio.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: "app-basemap",
   templateUrl: "./basemap.component.html",
-  styleUrls: ["./basemap.component.css"]
+  styleUrls: ["./basemap.component.scss"]
 })
 export class BasemapComponent implements OnInit, AfterViewInit {
   map: mapboxgl.Map;
@@ -36,6 +43,12 @@ export class BasemapComponent implements OnInit, AfterViewInit {
   zoom: number;
   pitch: number;
   bearing: number;
+  //
+  keyStroke: any;
+  //
+  featureArray = [];
+
+  popUp: mapboxgl.Popup;
 
   initialExtrusionHeight: any = null;
 
@@ -43,6 +56,7 @@ export class BasemapComponent implements OnInit, AfterViewInit {
     private cityio: CityIOService,
     private layerLoader: LayerLoaderService,
     private config: ConfigurationService,
+    private authenticationService: AuthenticationService,
     private zone: NgZone
   ) {
     // get the acess token
@@ -78,7 +92,7 @@ export class BasemapComponent implements OnInit, AfterViewInit {
     ];
 
     // Just what I would suggest to center GB - more or less
-    this.center = [10.014390953386766, 53.53128461384861];
+    // this.center = [10.014390953386766, 53.53128461384861];
 
     // add the base map and config
     this.map = new mapboxgl.Map({
@@ -108,7 +122,6 @@ export class BasemapComponent implements OnInit, AfterViewInit {
    */
 
   updateMapLayers(event) {
-    console.log(event);
     const layers: CsLayer[] = this.layerLoader.getLayers();
     layers.map(l => this.deployLayers(l));
   }
@@ -144,6 +157,9 @@ export class BasemapComponent implements OnInit, AfterViewInit {
           }
         }
       } else if (!layer.visible && this.map.getLayer(layer.id) != null) {
+        if (layer.id === "grid-test") {
+          this.removeGridInteraction();
+        }
         this.map.removeLayer(layer.id);
         this.map.removeSource(layer.id);
       }
@@ -166,7 +182,6 @@ export class BasemapComponent implements OnInit, AfterViewInit {
   }
 
   resetDataUrl = (csLayer: CsLayer) => {
-    console.log("data reload");
     (this.map.getSource(csLayer.id) as GeoJSONSource).setData(
       csLayer["source"]["data"]
     );
@@ -179,43 +194,106 @@ export class BasemapComponent implements OnInit, AfterViewInit {
   }
 
   /*
-   *   Initiate grid interaction
+   *   Handle grid interactions
    */
 
   private addGridInteraction() {
     this.map.on("click", "grid-test", this.clickOnGrid);
-    this.map.on("mousemove", "grid-test", e => {
-      const features = this.map.queryRenderedFeatures(e.point);
-      console.log(features[0]);
+    // keyboard event
+    this.map.getCanvas().addEventListener("keydown", this.keyStrokeOnMap);
+
+    this.map.on("dragstart", e => {
+      this.removePopUp();
     });
+    this.map.on("zoomstart", e => {
+      this.removePopUp();
+    });
+  }
+
+  private removeGridInteraction() {
+    this.map.off("click", "grid-test", this.clickOnGrid);
+    // keyboard event
+    this.map.getCanvas().removeEventListener("keydown", this.keyStrokeOnMap);
+
+    this.map.off("dragstart", e => {
+      this.removePopUp();
+    });
+    this.map.off("zoomstart", e => {
+      this.removePopUp();
+    });
+  }
+
+  //
+  //
+
+  keyStrokeOnMap = e => {
+    this.keyStroke = e;
+    if (this.authenticationService.currentUserValue) {
+      let clickedLayer: GeoJSONSource = this.map.getSource(
+        "grid-test"
+      ) as GeoJSONSource;
+      let currentSource = clickedLayer["_data"];
+      if (e.key === "w") {
+        this.removePopUp();
+        for (let feature of currentSource["features"]) {
+          if (this.featureArray.includes(feature.properties["id"])) {
+            const height = feature.properties["height"];
+            console.log(height);
+
+            if (height !== null) {
+              if (height < 50) {
+                feature.properties["height"] = height + 1;
+              } else {
+                feature.properties["height"] = 0;
+              }
+            }
+          }
+          clickedLayer.setData(currentSource);
+        }
+      }
+    }
+  };
+
+  private removePopUp() {
+    if (this.popUp) {
+      this.popUp.remove();
+      this.popUp = null;
+    }
   }
 
   clickOnGrid = e => {
     //Manipulate the clicked feature
-
     let clickedFeature = e.features[0];
-    console.log(clickedFeature);
-
-    let clickedLayer: GeoJSONSource = this.map.getSource(
-      "grid-test"
-    ) as GeoJSONSource;
-    let currentSource = clickedLayer["_data"];
-    for (let feature of currentSource["features"]) {
-      if (feature.properties["id"] === clickedFeature.properties["id"]) {
-        if (feature.properties["color"] === "#ff00ff") {
-          feature.properties["color"] = "#008dd5";
-        } else {
-          feature.properties["color"] = "#ff00ff";
+    if (this.authenticationService.currentUserValue) {
+      let layers = this.map.getStyle().layers;
+      let clickedLayer: GeoJSONSource = this.map.getSource(
+        "grid-test"
+      ) as GeoJSONSource;
+      let currentSource = clickedLayer["_data"];
+      for (let feature of currentSource["features"]) {
+        if (feature.properties["id"] === clickedFeature.properties["id"]) {
+          if (feature.properties["color"] === "#ff00ff") {
+            feature.properties["color"] = "#008dd5";
+            // remove this cell from array
+            for (var i = this.featureArray.length - 1; i >= 0; i--) {
+              if (this.featureArray[i] === clickedFeature.properties["id"]) {
+                this.featureArray.splice(i, 1);
+              }
+            }
+          } else {
+            feature.properties["color"] = "#ff00ff";
+            this.featureArray.push(clickedFeature.properties["id"]);
+          }
         }
       }
+      clickedLayer.setData(currentSource);
     }
-    clickedLayer.setData(currentSource);
 
-    new mapboxgl.Popup()
+    // add a popup data window
+    this.popUp = new mapboxgl.Popup()
       .setLngLat(e.lngLat)
       .setHTML(
-        "<h3> Cell details </h3>" +
-          "type: " +
+        "type: " +
           clickedFeature.properties.type +
           " id: " +
           clickedFeature.properties.id
