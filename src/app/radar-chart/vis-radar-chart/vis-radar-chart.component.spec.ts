@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VizRadarChartComponent } from './viz-radar-chart.component';
+import { VisRadarChartComponent } from './vis-radar-chart.component';
 
-describe('VizRadarChartComponent', () => {
-  let component: VizRadarChartComponent;
-  let fixture: ComponentFixture<VizRadarChartComponent>;
+describe('VisRadarChartComponent', () => {
+  let component: VisRadarChartComponent;
+  let fixture: ComponentFixture<VisRadarChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VizRadarChartComponent ]
+      declarations: [ VisRadarChartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VizRadarChartComponent);
+    fixture = TestBed.createComponent(VisRadarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

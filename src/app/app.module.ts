@@ -13,6 +13,7 @@ import { LegendComponent } from "./basemap/map-controls/legend/legend.component"
 import { LayerControlComponent } from "./basemap/map-controls/layer-control/layer-control.component";
 import { ConfigurationService } from "./service/configuration.service";
 import { CityIOService } from "./service/cityio.service";
+import { VisRadarChartComponent } from './radar-chart/vis-radar-chart/vis-radar-chart.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CityIOService } from "./service/cityio.service";
     RadarChartComponent,
     MapSettingComponent,
     LegendComponent,
-    LayerControlComponent
+    LayerControlComponent,
+    VisRadarChartComponent
   ],
   imports: [
     BrowserModule,

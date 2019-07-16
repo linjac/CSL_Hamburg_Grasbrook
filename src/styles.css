@@ -15,3 +15,8 @@ body {
   cursor: pointer;
   padding: 5px 5px 1px 5px;
 }
+
+app-radar-chart {
+  background-color: black;
+  color: white;
+}
