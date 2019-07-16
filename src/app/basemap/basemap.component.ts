@@ -25,6 +25,8 @@ import { LayerLoaderService } from "../services/layer-loader.service";
 import { CityIOService } from "../services/cityio.service";
 import { AuthenticationService } from "../services/authentication.service";
 
+import { ModalService } from "./visualization/modal/modal.service";
+
 @Component({
   selector: "app-basemap",
   templateUrl: "./basemap.component.html",
@@ -57,7 +59,9 @@ export class BasemapComponent implements OnInit, AfterViewInit {
     private layerLoader: LayerLoaderService,
     private config: ConfigurationService,
     private authenticationService: AuthenticationService,
-    private zone: NgZone
+    private zone: NgZone,
+
+    private modalService: ModalService
   ) {
     // get the acess token
     // mapboxgl.accessToken = environment.mapbox.accessToken;
@@ -300,6 +304,21 @@ export class BasemapComponent implements OnInit, AfterViewInit {
       )
       .addTo(this.map);
   };
+
+  /*
+  *    Visualization Logic
+  */
+  openModal(id: string) {
+      this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+      this.modalService.close(id);
+  }
+
+
+
+
 
   /*
    *   Map menu logic

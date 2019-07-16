@@ -21,6 +21,10 @@ import { fakeBackendProvider } from "./interceptors/fake-backend";
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ErrorInterceptor } from "./interceptors/error.interceptor";
+import { ModalComponent } from './basemap/visualization/modal/modal.component';
+
+import { ModalModule } from './basemap/visualization/modal/modal.module';
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { ErrorInterceptor } from "./interceptors/error.interceptor";
     MapSettingComponent,
     LegendComponent,
     LayerControlComponent,
-    LoginComponent
+    LoginComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ import { ErrorInterceptor } from "./interceptors/error.interceptor";
     BrowserAnimationsModule,
     MatIconModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule,
+    FormsModule
   ],
   exports: [MatSnackBarModule],
   providers: [
