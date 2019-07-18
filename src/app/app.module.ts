@@ -25,6 +25,9 @@ import { ModalComponent } from './basemap/visualization/modal/modal.component';
 
 import { ModalModule } from './basemap/visualization/modal/modal.module';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { DialogContentExample, DialogContentExampleDialog } from './basemap/visualization/dialog/dialog-content-example'
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
     LegendComponent,
     LayerControlComponent,
     LoginComponent,
-    ModalComponent
+    ModalComponent,
+    DialogContentExample,
+    DialogContentExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
     MatTooltipModule,
     ReactiveFormsModule,
     ModalModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   exports: [MatSnackBarModule],
   providers: [
@@ -58,9 +64,13 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider
+    fakeBackendProvider,
+
+    MatDialogModule,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogContentExample, DialogContentExampleDialog]
 })
 export class AppModule implements OnInit {
   ngOnInit() {}
