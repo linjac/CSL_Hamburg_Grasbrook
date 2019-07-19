@@ -3,7 +3,7 @@
 
   <div class="modal-container container-left-bottom">
 
-    <!--<app-legend [layer]="mapKeyLayer" [visible]="mapKeyVisible" (close)="mapKeyVisible = false"></app-legend>-->
+    <app-legend [layer]="mapKeyLayer" [visible]="mapKeyVisible" (close)="mapKeyVisible = false"></app-legend>
 
     <app-layer-control [layers]="layers" (toggleLayer)="toggleLayer()" (showInfo)="showMapKey($event)"></app-layer-control>
   </div>
@@ -11,7 +11,8 @@
   <div class="modal-container-left container-left-top">
       <app-map-setting (mapSettings)="mapSettingsListener($event)"></app-map-setting>
   </div>
-  <dialog-content-example dialogType="radar!"></dialog-content-example>
+<!--   <dialog-content-example dialogType="radar!"></dialog-content-example>
+ -->  <app-dialog dialogType="radar!"></app-dialog>
 </div>
 
 
@@ -33,3 +34,4 @@
     <button (click)="closeModal('custom-modal-2');">Close</button>
 </jw-modal> -->
 
+<!-- <dialog-content-example dialogType="radar!"></dialog-content-example> -->

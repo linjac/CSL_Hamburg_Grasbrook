@@ -392,3 +392,15 @@ export class BasemapComponent implements OnInit, AfterViewInit {
     Maptastic("basemap");
   }
 }
+
+
+
+// @Component({
+//   selector: 'chart-placeholder-comp',
+//   template: `
+//   <div>Placeholder component</div>
+//   <div>Replace this component with radar chart</div>`
+// })
+// export class ChartPlaceholderComponent {
+
+// }

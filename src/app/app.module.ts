@@ -25,9 +25,11 @@ import { ModalComponent } from './basemap/visualization/modal/modal.component';
 
 import { ModalModule } from './basemap/visualization/modal/modal.module';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import { DialogContentExample, DialogContentExampleDialog } from './basemap/visualization/dialog/dialog-content-example'
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import { DialogContentExample, DialogContentExampleDialog } from './basemap/visualization/dialog/dialog-content-example';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+import { DialogComponent, ChartPlaceholderComponent  } from './basemap/visualization/dialog/dialog.component';
+import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component'
 
 @NgModule({
   declarations: [
@@ -38,9 +40,13 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/di
     LegendComponent,
     LayerControlComponent,
     LoginComponent,
+
     ModalComponent,
     DialogContentExample,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    DialogComponent,
+    DialogShell,
+    ChartPlaceholderComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,7 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/di
     ModalModule,
     FormsModule,
     MatDialogModule
+
   ],
   exports: [MatSnackBarModule],
   providers: [
@@ -67,10 +74,12 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/di
     fakeBackendProvider,
 
     MatDialogModule,
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+    ChartPlaceholderComponent
+    // { provide: MAT_DIALOG_DATA }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogContentExample, DialogContentExampleDialog]
+  entryComponents: [DialogContentExample, DialogContentExampleDialog, DialogComponent, DialogShell, ChartPlaceholderComponent]
 })
 export class AppModule implements OnInit {
   ngOnInit() {}

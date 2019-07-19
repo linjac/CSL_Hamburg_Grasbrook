@@ -6,10 +6,13 @@ import { BasemapComponent } from "./basemap/basemap.component";
 import { AuthGuard } from "./utils/auth.guard";
 import { LoginComponent } from "./login/login.component";
 
+import { DialogContentExample } from './basemap/visualization/dialog/dialog-content-example';
+
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
-  { path: "map", component: BasemapComponent }
+  { path: "map", component: BasemapComponent },
+  { path: "dialog", component: DialogContentExample}
 ];
 
 // Protect access to certain areas like this { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
