@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialo
 
 // import { LayerControlComponent } from '../../map-controls/layer-control/layer-control.component'; // TODO: a placeholder component for a radar chart component
 // import { ChartPlaceholderComponent } from "../../basemap.component"
-import { DialogShell } from "./dialog-shell.component"
+import { DialogShell } from "./dialog-shell.component";
 
 @Component({
   selector: 'app-dialog',

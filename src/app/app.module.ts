@@ -61,7 +61,7 @@ import { DialogShell } from './basemap/visualization/dialog/dialog-shell.compone
     MatDialogModule
 
   ],
-  exports: [MatSnackBarModule],
+  exports: [MatSnackBarModule, ChartPlaceholderComponent],
   providers: [
     HttpClientModule,
     CityIOService,
@@ -79,7 +79,12 @@ import { DialogShell } from './basemap/visualization/dialog/dialog-shell.compone
     // { provide: MAT_DIALOG_DATA }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogContentExample, DialogContentExampleDialog, DialogComponent, DialogShell, ChartPlaceholderComponent]
+  entryComponents: [
+    DialogContentExample, 
+    DialogContentExampleDialog, 
+    DialogComponent, 
+    DialogShell, 
+    ChartPlaceholderComponent]
 })
 export class AppModule implements OnInit {
   ngOnInit() {}

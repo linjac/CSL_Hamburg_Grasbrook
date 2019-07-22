@@ -7,25 +7,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DialogShell {
 
-  @ViewChild('target', { read: ViewContainerRef, static: false}) vcRef: ViewContainerRef;
+  // @ViewChild('target', { read: ViewContainerRef, static: false}) vcRef: ViewContainerRef;
 
-  componentRef: ComponentRef<any>;
+  // componentRef: ComponentRef<any>;
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogShell>,
-    private resolver: ComponentFactoryResolver,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  // constructor(
+  //   public dialogRef: MatDialogRef<DialogShell>,
+  //   private resolver: ComponentFactoryResolver,
+  //   @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
-    const factory = this.resolver.resolveComponentFactory(this.data.component);
-    this.componentRef = this.vcRef.createComponent(factory);
-  }
+  // ngOnInit() {
+  //   const factory = this.resolver.resolveComponentFactory(this.data.component);
+  //   this.componentRef = this.vcRef.createComponent(factory);
+  // }
 
-  ngOnDestroy() {
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
-  }  
+  // ngOnDestroy() {
+  //   if (this.componentRef) {
+  //     this.componentRef.destroy();
+  //   }
+  // }  
 }
 
 
