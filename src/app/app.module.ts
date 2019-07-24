@@ -28,8 +28,11 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { DialogContentExample, DialogContentExampleDialog } from './basemap/visualization/dialog/dialog-content-example';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import { DialogComponent, ChartPlaceholderComponent  } from './basemap/visualization/dialog/dialog.component';
-import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component'
+import { DialogComponent } from './basemap/visualization/dialog/dialog.component';
+import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component';
+import { ChartPlaceholderComponent  } from './basemap/visualization/dialog/chart-holder-comp';
+import { DummyDirective } from './basemap/visualization/dialog/dummy.directive';
+import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-chart.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { DialogShell } from './basemap/visualization/dialog/dialog-shell.compone
     DialogContentExampleDialog,
     DialogComponent,
     DialogShell,
-    ChartPlaceholderComponent
+    ChartPlaceholderComponent,
+    DummyDirective,
+    RadarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,8 @@ import { DialogShell } from './basemap/visualization/dialog/dialog-shell.compone
 
     MatDialogModule,
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
-    ChartPlaceholderComponent
+    ChartPlaceholderComponent,
+    RadarChartComponent
     // { provide: MAT_DIALOG_DATA }
   ],
   bootstrap: [AppComponent],
@@ -84,7 +90,8 @@ import { DialogShell } from './basemap/visualization/dialog/dialog-shell.compone
     DialogContentExampleDialog, 
     DialogComponent, 
     DialogShell, 
-    ChartPlaceholderComponent]
+    ChartPlaceholderComponent,
+    RadarChartComponent]
 })
 export class AppModule implements OnInit {
   ngOnInit() {}

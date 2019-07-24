@@ -5,6 +5,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialo
 // import { LayerControlComponent } from '../../map-controls/layer-control/layer-control.component'; // TODO: a placeholder component for a radar chart component
 // import { ChartPlaceholderComponent } from "../../basemap.component"
 import { DialogShell } from "./dialog-shell.component";
+import { ChartPlaceholderComponent } from "./chart-holder-comp";
+import { RadarChartComponent } from "../radar-chart/radar-chart.component";
 
 @Component({
   selector: 'app-dialog',
@@ -23,7 +25,7 @@ export class DialogComponent {
       // backdropClass: 'backdropBackground'
       // hasBackdrop: true
       width: '250px',
-      data: { component: this.visualization}
+      data: { component: { radar: RadarChartComponent, placeholder: ChartPlaceholderComponent} }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,15 +62,15 @@ export class DialogComponent {
 //   }  
 // }
 
-@Component({
-  selector: 'chart-placeholder-comp',
-  template: `
-  <div>Placeholder component</div>
-  <div>Replace this component with radar chart</div>`
-})
-export class ChartPlaceholderComponent {
+// @Component({
+//   selector: 'chart-placeholder-comp',
+//   template: `
+//   <div>jhgfds Placeholder component</div>
+//   <div>Replace this component with radar chart</div>`
+// })
+// export class ChartPlaceholderComponent {
 
-}
+// }
 
 
 

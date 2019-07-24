@@ -32,6 +32,7 @@ export class DialogContentExample {
 @Component({
   selector: 'dialog-content-example-dialog',
   templateUrl: 'dialog-content-example-dialog.html',
+  styleUrls: ['dialog.component.scss'],
 }) 
 export class DialogContentExampleDialog {}
 
