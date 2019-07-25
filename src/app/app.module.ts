@@ -25,7 +25,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {ExitEditorDialog} from "./dialogues/exit-editor-dialog";
 
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogComponent } from './basemap/visualization/dialog/dialog.component';
 import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component';
 import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-chart.component';
@@ -42,7 +41,7 @@ import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-c
     
     DialogComponent,
     DialogShell,
-    RadarChartComponent
+    RadarChartComponent,
 
     ExitEditorDialog
   ],
