@@ -25,6 +25,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {ExitEditorDialog} from "./dialogues/exit-editor-dialog";
 
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialogComponent } from './basemap/visualization/dialog/dialog.component';
+import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component';
+import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-chart.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +39,11 @@ import {ExitEditorDialog} from "./dialogues/exit-editor-dialog";
     LegendComponent,
     LayerControlComponent,
     LoginComponent,
+    
+    DialogComponent,
+    DialogShell,
+    RadarChartComponent
+
     ExitEditorDialog
   ],
   imports: [
@@ -57,9 +67,17 @@ import {ExitEditorDialog} from "./dialogues/exit-editor-dialog";
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
 
     // provider used to create fake backend
-    fakeBackendProvider
+    fakeBackendProvider,
+
+    MatDialogModule,
+    RadarChartComponent
   ],
-  entryComponents: [ExitEditorDialog],
+  entryComponents: [
+    DialogComponent, 
+    DialogShell, 
+    RadarChartComponent,
+    ExitEditorDialog
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule implements OnInit {

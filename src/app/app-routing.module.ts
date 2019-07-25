@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "map", component: BasemapComponent }
-];
+  ];
 
 // Protect access to certain areas like this { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
 
