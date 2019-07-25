@@ -21,17 +21,10 @@ import { fakeBackendProvider } from "./interceptors/fake-backend";
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ErrorInterceptor } from "./interceptors/error.interceptor";
-import { ModalComponent } from './basemap/visualization/modal/modal.component';
 
-import { ModalModule } from './basemap/visualization/modal/modal.module';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import { DialogContentExample, DialogContentExampleDialog } from './basemap/visualization/dialog/dialog-content-example';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
 import { DialogComponent } from './basemap/visualization/dialog/dialog.component';
 import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component';
-import { ChartPlaceholderComponent  } from './basemap/visualization/dialog/chart-holder-comp';
-import { DummyDirective } from './basemap/visualization/dialog/dummy.directive';
 import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-chart.component';
 
 @NgModule({
@@ -44,13 +37,8 @@ import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-c
     LayerControlComponent,
     LoginComponent,
 
-    ModalComponent,
-    DialogContentExample,
-    DialogContentExampleDialog,
     DialogComponent,
     DialogShell,
-    ChartPlaceholderComponent,
-    DummyDirective,
     RadarChartComponent
   ],
   imports: [
@@ -61,12 +49,10 @@ import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-c
     MatIconModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    ModalModule,
-    FormsModule,
     MatDialogModule
 
   ],
-  exports: [MatSnackBarModule, ChartPlaceholderComponent],
+  exports: [MatSnackBarModule],
   providers: [
     HttpClientModule,
     CityIOService,
@@ -79,18 +65,12 @@ import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-c
     fakeBackendProvider,
 
     MatDialogModule,
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
-    ChartPlaceholderComponent,
     RadarChartComponent
-    // { provide: MAT_DIALOG_DATA }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogContentExample, 
-    DialogContentExampleDialog, 
     DialogComponent, 
     DialogShell, 
-    ChartPlaceholderComponent,
     RadarChartComponent]
 })
 export class AppModule implements OnInit {

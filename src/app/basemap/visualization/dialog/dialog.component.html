@@ -1,1 +1,7 @@
-<button mat-button (click)="openDialog()">{{dialogType}}</button>
+<!-- <div class="modal-container-pleft" (click)="openDialog()" >{{dialogType}}</div> -->
+
+<button mat-stroked-button (click)="openDialog()"
+       class="map-control-element map-settings-button"> {{dialogType}}
+    <i class="material-icons menu-icons white"
+       matTooltipPosition="right" matTooltip="view radar chart"></i>
+</button>

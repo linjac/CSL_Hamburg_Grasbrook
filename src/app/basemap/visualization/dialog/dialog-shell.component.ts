@@ -9,14 +9,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DialogShell {
 
-  @ViewChild('radarChart', { read: ViewContainerRef, static: true}) vcRef0: ViewContainerRef;
-  @ViewChild('target2', { read: ViewContainerRef, static: true}) vcRef1: ViewContainerRef;
+  /*
+   * For each dynamic component created in dialog, have a ViewChild for that component
+   */
 
-  // @ViewChild(DummyDirective, { read: ViewContainerRef, static: true}) vcRef: DummyDirective;
+  @ViewChild('radarChart', { read: ViewContainerRef, static: true}) radar: ViewContainerRef;
+  // @ViewChild('placeholder', { read: ViewContainerRef, static: true}) placeholder: ViewContainerRef;
 
-
-  // componentRef: ComponentRef[];
-  componentRef: any[];
+  componentRef: any[]; 
 
   constructor(
     public dialogRef: MatDialogRef<DialogShell>,
@@ -25,17 +25,16 @@ export class DialogShell {
 
   ngOnInit() {
     const factory0 = this.resolver.resolveComponentFactory(this.data.component.radar);
-    const factory1 = this.resolver.resolveComponentFactory(this.data.component.placeholder);
-    // const vcRef = this.dummy.viewContainerRef;
-    console.log(this.vcRef0);
-    this.componentRef = [this.vcRef0.createComponent(factory0), this.vcRef1.createComponent(factory1)];
+    // const factory1 = this.resolver.resolveComponentFactory(this.data.component.placeholder);
+    this.componentRef = [ this.radar.createComponent(factory0) ];
   }
 
   ngOnDestroy() {
     if (this.componentRef) {
-      this.componentRef[0].destroy();
-      this.componentRef[1].destroy();
-      console.log('dialog and component instances destroyed');
+      // destroy each component instance upon closing -destroying- the dialog
+      for (let component of this.componentRef) {
+        component.destroy();
+      }
     }
   }  
 }
