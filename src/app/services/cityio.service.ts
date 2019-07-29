@@ -9,7 +9,7 @@ import { catchError, tap } from "rxjs/operators";
 })
 export class CityIOService {
   baseUrl = "https://cityio.media.mit.edu/api/table/";
-  tableName = "virtual_table";
+  tableName = "grasbrook";
   url = `${this.baseUrl}${this.tableName}`;
 
   table_data: any = null; // can be accessed by other components, this will always be updated
