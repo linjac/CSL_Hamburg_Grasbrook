@@ -5,7 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'dialog-shell',
-  templateUrl: './dialog-shell.component.html'
+  templateUrl: './dialog-shell.component.html',
+  styleUrls: ['./dialog-shell.component.scss']
 })
 export class DialogShell {
 
@@ -24,7 +25,8 @@ export class DialogShell {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    const factory0 = this.resolver.resolveComponentFactory(this.data.component.radar);
+    this.dialogRef.updateSize('100vh','90vh');
+    const factory0 = this.resolver.resolveComponentFactory(this.data.radar);
     // const factory1 = this.resolver.resolveComponentFactory(this.data.component.placeholder);
     this.componentRef = [ this.radar.createComponent(factory0) ];
   }

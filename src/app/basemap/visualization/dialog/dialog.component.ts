@@ -19,8 +19,10 @@ export class DialogComponent {
     let dialogRef = this.dialog.open(DialogShell, {
       // backdropClass: 'backdropBackground'
       hasBackdrop: true,
-      width: '250px',
-      data: { component: { radar: RadarChartComponent } } // inject more dynamic components into dialog
+      disableClose: true,
+      width: '95%',
+      padding: 'auto',
+      data: { radar: RadarChartComponent } // inject more dynamic components into dialog
     });
 
     dialogRef.afterClosed().subscribe(result => {
