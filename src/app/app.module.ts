@@ -25,6 +25,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { ExitEditorDialog } from "./dialogues/exit-editor-dialog";
 
+import { DialogComponent } from './basemap/visualization/dialog/dialog.component';
+import { DialogShell } from './basemap/visualization/dialog/dialog-shell.component';
+import { RadarChartComponent } from './basemap/visualization/radar-chart/radar-chart.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +38,10 @@ import { ExitEditorDialog } from "./dialogues/exit-editor-dialog";
     LegendComponent,
     LayerControlComponent,
     LoginComponent,
-    ExitEditorDialog
+    ExitEditorDialog,
+    DialogComponent,
+    DialogShell,
+    RadarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,12 @@ import { ExitEditorDialog } from "./dialogues/exit-editor-dialog";
     // provider used to create fake backend
     fakeBackendProvider
   ],
-  entryComponents: [ExitEditorDialog],
+  entryComponents: [
+    ExitEditorDialog,
+    DialogComponent,
+    DialogShell,
+    RadarChartComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule implements OnInit {
